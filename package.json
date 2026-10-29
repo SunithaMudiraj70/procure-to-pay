@@ -1,0 +1,23 @@
+{
+  "name": "procure-to-pay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Procure-to-Pay System scaffolding and database management",
+  "scripts": {
+    "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "db:migrate": "node database/scripts/run_migrations.js",
+    "db:seed": "node database/scripts/seed_database.js",
+    "generate": "python data_generator/generate.py"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "pg": "^8.13.1"
+  }
+}

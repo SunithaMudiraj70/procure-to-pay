@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables (ignore all .env files across all subdirectories except examples)
+**/.env
+**/.env.*
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Scratch and temporary scripts
+scratch_*
+*.scratch.*
+**/scratch_*
+
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# Build and distribution
+dist/
+build/
+.cache/
+
+# Data generator outputs (ignore generated artifacts but preserve .gitkeep)
+data_generator/output/*
+!data_generator/output/**/.gitkeep
+
+# System and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
