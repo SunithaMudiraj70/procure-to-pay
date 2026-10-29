@@ -21,6 +21,7 @@ procure-to-pay/
 ├── .gitignore                          # Git exclusions for dependencies, environments, build artifacts
 ├── package.json                        # Monorepo root scripts with concurrently
 ├── docs/
+│   ├── prompts.md                      # AI prompt history, methodology log & collaboration disclosure
 │   ├── data_dictionary.md              # Domain entity definitions & column schemas
 │   ├── er_diagram.md                   # Relational database schema diagrams
 │   ├── business_rules.md               # Approval hierarchies, state machine & validation constraints
@@ -234,6 +235,33 @@ All exported files are generated under `data_generator/output/`:
 - `output/manifest.json`: Checksum inventory and row counts
 
 ---
+
+## AI Disclosure & Collaboration Statement
+
+> **Submission Compliance:**  
+> In compliance with assignment submission instructions:  
+> *"LLM tools are allowed. Submit your prompt history and explain where AI accelerated your work, where you relied heavily on it, and what you personally reviewed, changed, or validated."*  
+> The complete chronological prompt log and detailed methodology is published in [docs/prompts.md](docs/prompts.md).
+
+### 1. Where AI Accelerated the Work
+- **Schema & DDL Definition:** Rapid generation of 6 PostgreSQL migrations with strict table schemas, foreign key definitions, composite uniqueness constraints, stored generated columns, and regex pattern checks for deterministic IDs (`PR-YYYY-NNNNNN`, etc.).
+- **Synthetic Data Generation Engine:** Construction of a parameterizable, deterministic Python generation pipeline (`data_generator/generate.py`) that generates master records first, followed by dependent transaction tables and multi-leg deliveries.
+- **Analytical SQL Views:** Generation of complex operational views such as `v_quote_comparison` (window-partitioned ranking for cost and delivery days), `v_budget_balances` (double-entry ledger rollups), and `v_rule_violations` (automated real-time detection of all 7 labelled anomalies).
+- **Full-Stack Component Scaffolding:** Accelerated scaffolding of 17 React domain views, TanStack Query hooks, Zustand client state stores, and the dark-mode glassmorphism design system.
+
+### 2. Where AI Was Relied Upon Heavily
+- **Complex Financial & Landed-Cost Calculations:** Multi-currency normalization and landed cost derivations (`subtotal + freight + duty + other`) ensuring exact rounding parity across Python, SQL, and JavaScript.
+- **Exhaustive Documentation Authoring:** Generating the comprehensive 415-line [docs/data_dictionary.md](docs/data_dictionary.md) specifying data types, nullability, uniqueness, validation rules, units, and lifecycle semantics for all 11 core entities plus audit and ledger tables.
+- **Reproducibility Test Harness:** Creating the automated SHA-256 verification harness and manifest inventory to prove 100% cryptographic reproducibility across independent generation passes.
+- **Integration Test Scenarios:** Drafting the 11 integration test suites in `backend/tests/api.test.js` validating role-based authorization, threshold preview paths, approval hierarchies, and budget arithmetic.
+
+### 3. What Was Personally Reviewed, Changed, or Validated
+- **Live Database Binding (Mock Data Removal):** Personally inspected all frontend components, stripped out hardcoded mock arrays from early prototypes, and verified that all dashboard cards, charts, and tables display live PostgreSQL records via backend REST endpoints.
+- **Form Cascade & Usability Corrections:** Identified and resolved issues in the PR creation wizard where department selections were not filtering budget dropdowns properly, removed duplicate justification fields, and added master category lookups.
+- **Active User Switching & RBAC Verification:** Verified that the header user switcher dynamically loads active users from the database across all 5 roles (`requester`, `approver`, `process_owner`, `operations_analyst`, `system_admin`) and correctly enforces permissions on sensitive actions.
+- **Security & Credential Sanitization:** Personally inspected the workspace, removed all scratch test scripts (`scratch_check.js`, `check_counts.mjs`, `enrich_walkthrough_data.js`), removed duplicate image assets, and hardened `.gitignore` with wildcard rules to guarantee that no database credentials or `.env` files can be committed.
+- **Runtime Validation & Builds:** Executed and validated all 11 backend integration tests (`node --test tests/api.test.js` passed 100%) and verified the frontend production build (`npm run build` compiled cleanly in 8.19s with 0 errors).
+
 
 
 
